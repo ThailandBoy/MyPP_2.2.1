@@ -3,7 +3,7 @@ package hiber.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
    @Id
@@ -19,20 +19,29 @@ public class User {
    @Column(name = "email")
    private String email;
 
+   // CascadeType.ALL will perform all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH)
+   // to the related entities/collection e.g. when User will be Persisted, Car will also be Persisted.   
+   @OneToOne(cascade = CascadeType.ALL)
+   @JoinColumn(name = "car_id", referencedColumnName = "id")
+   private Car car;
+
+
    public User() {}
    
-   public User(String firstName, String lastName, String email) {
+   public User(String firstName, String lastName, String email, Car car) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
+      this.car = car;
    }
+
 
    public Long getId() {
       return id;
    }
 
-   public void setId(Long id) {
-      this.id = id;
+   public Car getCar() {
+      return car;
    }
 
    public String getFirstName() {
@@ -58,4 +67,11 @@ public class User {
    public void setEmail(String email) {
       this.email = email;
    }
+
+   @Override
+   public String toString() {
+      return "User [id= " + id + ", firstName= " + firstName + ", lastName= " + lastName + ", email= " + email + ", car= "
+            + car + "]";
+   }
+
 }
