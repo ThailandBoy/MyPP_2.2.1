@@ -23,7 +23,7 @@ import java.util.Properties;
 @ComponentScan(value = "hiber")
 public class AppConfig {
 
-   // почти 100% уверен что Enviroment env берет данные из resources/db.properties
+   // почти 100% уверен что Environment env берет данные из resources/db.properties
    // скорее всего? Environment env использует аннотацию @PropertySource("classpath:db.properties") 
    @Autowired
    private Environment env; // иньекция зависимости от класса спринга. что то новое

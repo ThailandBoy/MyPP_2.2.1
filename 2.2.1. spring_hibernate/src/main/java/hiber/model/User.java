@@ -20,8 +20,11 @@ public class User {
    private String email;
 
    // CascadeType.ALL will perform all EntityManager operations (PERSIST, REMOVE, REFRESH, MERGE, DETACH)
-   // to the related entities/collection e.g. when User will be Persisted, Car will also be Persisted.   
-   @OneToOne(cascade = CascadeType.ALL)
+   // to the related entities/collection e.g. when User will be Persisted, Car will also be Persisted.
+   // Так как связть OneToOne то запись ниже приемлема, но если OneToMany или ManyToMany так делать не надо
+   // Тоесть!: если OneToMany или ManyToMany - FetchType.LAZY
+   //          если OneToOne, ManyToOne - FetchType.EAGER
+   @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
    @JoinColumn(name = "car_id", referencedColumnName = "id")
    private Car car;
 

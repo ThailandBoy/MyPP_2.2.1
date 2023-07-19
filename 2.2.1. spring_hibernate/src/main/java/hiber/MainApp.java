@@ -12,9 +12,9 @@ import java.util.List;
 public class MainApp {
    public static void main(String[] args) throws SQLException {
       AnnotationConfigApplicationContext context = 
-            new AnnotationConfigApplicationContext(AppConfig.class);
+            new AnnotationConfigApplicationContext(AppConfig.class); // запилил контейнер для бинов
 
-      UserService userService = context.getBean(UserService.class);
+      UserService userService = context.getBean(UserService.class); // достал бин
 
       Car car1 = new Car("Mark_1", 0001);
       Car car2 =  new Car("Mark_2", 0002);
