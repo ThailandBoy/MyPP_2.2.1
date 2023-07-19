@@ -20,10 +20,6 @@ public class UserDaoImp implements UserDao {
       sessionFactory.getCurrentSession().save(user);
    }
 
-   @Override
-   public void add(Car car) {
-      sessionFactory.getCurrentSession().save(car);
-   }
 
    @Override
    @SuppressWarnings("unchecked")
@@ -32,23 +28,16 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
-   @Override
-   @SuppressWarnings("unchecked")
-   public List<Car> listCar() {
-      // что за TypedQuery?
-      TypedQuery<Car> query = sessionFactory.getCurrentSession().createQuery("from Car");
-      return query.getResultList();
-   }
-
    // HQL - ЧУВСТВИТЕЛЕН К РЕГИСТРУ!!!!!!
    @Override
    @SuppressWarnings("unchecked")
-   public User getUserByCarModelSeries(String car_model, int series) {
-      TypedQuery<Car> query = sessionFactory.getCurrentSession()
-            .createQuery("from Car where model= :car_model and series= :series");
+   public User get_user_by_car_model_series(String car_model, int series) {
+      TypedQuery<User> query = sessionFactory.getCurrentSession()
+              .createQuery("from User u join fetch u.car " +
+                      "where u.car.model= :car_model and u.car.series= :series");
       query.setParameter("car_model", car_model);
       query.setParameter("series", series);
-      return query.getSingleResult().getUser();
+      return query.getSingleResult();
    }
 
 }
